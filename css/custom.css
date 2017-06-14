@@ -1,0 +1,151 @@
+body {
+	height: 100vh;
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+
+nav {
+	padding: 0 50px;
+}
+
+#landing-page {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: table;
+	margin: auto;
+}
+
+#landing-page {
+	background: url('../img/camping.jpg') center center no-repeat;
+	background-size: cover;
+}
+
+#landing-div {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 90px;
+}
+
+#landing-div h1, #landing-div h2 {
+	color: #fff;
+	text-shadow: 0 0 10px #000;
+}
+
+#landing-div h1 {
+	font-size: 4em;
+}
+
+#register-form-div, #login-form-div, #add-camp-div, #camp-info-page {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	/*height: 100vh;*/
+	height: 100%;
+	margin: 0;
+}
+
+#reg-form, #login-form, #add-camp-form {
+	width: 500px;
+	padding: 0 30px;
+	border: 1px solid #bbb;
+	box-shadow: 5px 5px 10px #ddd;
+	border-radius: 10px;
+}
+
+#reg-form {
+	height: 400px;
+}
+
+#login-form {
+	height: 300px;
+}
+
+#add-camp-form {
+	display: flex;
+	flex-direction: column;
+	height: 70%;
+}
+
+#camp-info-page {
+	/*margin-top: 100px;
+	margin-bottom: 100px;*/
+}
+
+#reg-btn, #login-btn, #add-camp-btn {
+	width: 100%;
+}
+
+#main-heading-div {
+	margin: 100px auto;
+}
+
+#main-heading {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.thumbnail img {
+	height: 150px;
+	/*height: 100%;*/
+	width: 100%;
+}
+
+#description {
+	resize: none;
+	height: 100px;
+}
+
+.camp-info-div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 75%;
+	/*height: 100%;*/
+	width: 55%;
+}
+
+.camp-info-div img {
+	height: 100%;
+	width: 100%;
+}
+
+#footer {
+	padding-top: 15px;
+}
+
+.navbar-brand, .navbar-nav li a, footer {
+	color: #fff !important;
+}
+
+@media only screen and (max-width: 770px) {
+	nav {
+		padding: 0 20px;
+	}
+
+	.thumbnail img {
+		height: 100%;
+	}
+}
+
+@media only screen and (max-width: 384px) {
+	#add-camp-form h3 {
+		font-size: 1.21em;
+	}
+}
+
+@media only screen and (max-width: 300px) {
+	#add-camp-form h3 {
+		font-size: 1.15em;
+	}
+}
