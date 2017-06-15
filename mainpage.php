@@ -1,4 +1,13 @@
-<?php include('includes/header.php'); ?>
+<?php
+	include('includes/functions.php');  
+	include('includes/header.php');
+
+	$camp_posts = showCamps($connection);
+
+	// echo "<pre>";
+	// print_r($camp_posts);
+	// echo "</pre>";
+?>
 
 	<div id="main-heading-div" class="container-fluid">
 	    <div id="main-heading" class="jumbotron">
@@ -8,14 +17,18 @@
 	    </div>
 
 	    <div class="row">
+	    	<?php foreach($camp_posts as $camp) : ?>
+
 	    	<div class="col-md-3 col-sm-6">
 	    		<div class="thumbnail camp-thumbnails">
-	    			<img src="https://static.pexels.com/photos/3247/nature-forest-industry-rails.jpg" alt="campground">
-	    			<h4 class="text-center">Test Image 1</h4>
-	    			<a href="campinfo.php"><p class="text-center">More Info...</p></a>		
+	    			<img src="<?php echo $camp['img_link']; ?>" alt="campground">
+	    			<h4 class="text-center"><?php echo $camp['title']; ?> </h4>
+	    			<a href="campinfo.php?id=<?php echo $camp['id']; ?>"><p class="text-center">More Info...</p></a>		
 	    		</div>
 	    	</div>
-	    	<div class="col-md-3 col-sm-6">
+
+	    	<?php endforeach; ?>
+	    	<!-- <div class="col-md-3 col-sm-6">
 	    		<div class="thumbnail camp-thumbnails">
 	    			<img src="https://static.pexels.com/photos/20974/pexels-photo.jpg" alt="campground">
 	    			<h4 class="text-center">Test Image 2</h4>
@@ -42,7 +55,7 @@
 	    			<h4 class="text-center">Test Image 5</h4>
 	    			<a href="#"><p class="text-center">More Info...</p></a>		
 	    		</div>
-	    	</div>
+	    	</div> -->
 	    </div>
     </div>
 

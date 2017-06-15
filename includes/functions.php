@@ -33,4 +33,36 @@
 			return $msg;
 		}
 	}
+
+	function showCamps($conn) {
+		$query = "SELECT * FROM camp_posts";
+		$statement = $conn->prepare($query);
+		$statement->execute();
+		$camp_posts = $statement->fetchAll();
+		$statement->closeCursor();
+
+		return $camp_posts;		
+	}
+
+	function showCampInfo($conn, $id) {
+		$query = "SELECT * FROM camp_posts WHERE id = :id";
+		$statement = $conn->prepare($query);
+		$statement->bindValue(':id', $id);
+		$statement->execute();
+		$camp_info = $statement->fetch();
+		$statement->closeCursor();
+
+		return $camp_info;
+	}
+
+	function displayComments($conn, $id) {
+		$query = "SELECT * FROM comments WHERE post_id = :id ORDER BY comment_date DESC";
+		$statement = $conn->prepare($query);
+		$statement->bindValue(':id', $id);
+		$statement->execute();
+		$comments = $statement->fetchAll();
+		$statement->closeCursor();
+
+		return $comments;	
+	}
 ?>
