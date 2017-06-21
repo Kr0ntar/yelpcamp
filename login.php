@@ -1,8 +1,15 @@
 <?php
 	include('includes/header.php');
 
-	if($_POST) {
-		echo loginUser($connection);
+	$email_username = "";
+	$msg = "";
+
+	if(isset($_POST['login-submit'])) {
+		$msg = loginUser($connection);
+		if($msg !== "success") {
+			$email_username = $_POST['email-username'];
+			echo $msg;
+		}
 	}
 
 	if(isset($_GET['sign-in'])) {
@@ -12,30 +19,22 @@
 
 		echo $msg;
 	}
-
-	if(isset($_GET['login-error'])) {
-		$error = '<div class="alert alert-danger">';
-		$error .= '<p>Not yet registered!</p>';
-		$error .= '</div>';
-
-		echo $error;
-	}
 ?>
 
 <div id="login-form-div" class="container-fluid">
 	<form id="login-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
 	  <h3>Login Form</h3><br>
 	  <div class="form-group">
-	    <label for="username">Username</label>
-	    <input type="text" name="login-username" class="form-control" id="login-username" placeholder="Username" required>
+	    <label for="email-username">Email or Username</label>
+	    <input type="text" name="email-username" class="form-control" id="email-username" placeholder="Email or Username" value="<?php echo $email_username; ?>" required>
 	  </div>
 	  <div class="form-group">
 	    <label for="password">Password</label>
 	    <input type="password" name="login-password" class="form-control" id="login-password" placeholder="Password" required>
 	  </div><br>
 	  <div id="login-btns" class="pull-right">
-		  <button id="login-btn" name="submit" type="submit" class="btn btn-primary">Login</button>
-		  <a href="mainpage.php" id="login-cancel-btn" class="btn btn-danger">Cancel</a>
+		  <button id="login-btn" name="login-submit" type="submit" class="btn btn-primary">Login</button>
+		  <a href="login.php" id="login-cancel-btn" class="btn btn-danger">Cancel</a>
 	  </div>
 	</form>
 </div>

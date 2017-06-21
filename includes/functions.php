@@ -42,33 +42,29 @@
 
 	function loginUser($conn) {
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-		$username = $post['login-username'];
+		$email = $post['email-username'];
+		$username = $post['email-username'];
 		$password = md5($post['login-password']);
 
-		$query = "SELECT * FROM campers WHERE username = :username AND password = :password";
+		$query = "SELECT * FROM campers WHERE email = :email OR username = :username";
 
 		$statement = $conn->prepare($query);
+		$statement->bindValue(':email', $email);
 		$statement->bindValue(':username', $username);
-		$statement->bindValue(':password', $password);
 		$statement->execute();
 		$matchFound = $statement->fetch();
 		$statement->closeCursor();
 
 		if($matchFound) {
-			$_SESSION['logged_in'] = true;
-			$_SESSION['camper_data'] = ["id"=>$matchFound['id'], "name"=>$matchFound['username']];
-			header("Location: mainpage.php");
-
-			// $msg = '<div class="alert alert-success">';
-			// $msg .= '<p>Logged In!</p>';
-			// $msg .= '</div>';
-			// return $msg;
+			if( ($matchFound['email'] === $email || $matchFound['username'] === $username) && $matchFound['password'] !== $password) {
+				return '<div class="alert alert-danger"><p>Invalid Password!</p></div>';
+			} else {
+				$_SESSION['logged_in'] = true;
+				$_SESSION['camper_data'] = ["id"=>$matchFound['id'], "name"=>$matchFound['username']];
+				header("Location: mainpage.php");
+			}
 		} else {
-			// $error = '<div class="alert alert-danger">';
-			// $error .= '<p>Not yet registered!</p>';
-			// $error .= '</div>';
-			header("Location: login.php?login-error");
-			// return $error;
+			return '<div class="alert alert-danger"><p>Email or Username cannot be found. <a href="register.php">Sign up for an account.</a></p></div>';
 		}
 	}
 
@@ -76,7 +72,6 @@
 		unset($_SESSION['logged_in']);
         unset($_SESSION['camper_data']);
         session_destroy();
-        // header("Location: mainpage.php");
 	}
 
 	function showCamps($conn) {
