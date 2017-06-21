@@ -1,11 +1,36 @@
 <?php 
   include('includes/header.php'); 
-  include('includes/functions.php');
-  
-  $camp_id = $_GET['id'];
-  $camp_info = showCampInfo($connection, $camp_id);
-  $comments = displayComments($connection, $camp_id);
+
+  $post_id = $_GET['post-id'];
+  $camp_info = showCampInfo($connection, $post_id);
+  $comments = displayComments($connection, $post_id);
+  $received = "";
+  $error = "";
+  $msg = "";
+
+  if(isset($_POST['add-comment'])) {
+      $msg = addComment($connection, $post_id);
+      $comments = displayComments($connection, $post_id);
+  }
+
+  if(isset($_POST['delete-comment'])) {
+      deleteCommentHistory($connection, $post_id);
+      deleteComment($connection, $post_id);
+      $comments = displayComments($connection, $post_id);
+  }
+
+ 
 ?>
+
+
+
+<!-- <div class="alert alert-success add-comment-msg">
+  <p>Comment added!</p>
+</div> -->
+
+<?php echo $msg; ?>
+
+<input id="url" type="hidden" name="" value="campinfo.php?post-id=<?php echo $_GET['post-id']; ?>">
 
 <div id="camp-info-div">
 	<div class="thumbnail camp-img">
@@ -17,53 +42,81 @@
     </div>
   </div>
 
-  <!-- <div class="thumbnail camp-img">
-    <img src="https://static.pexels.com/photos/3247/nature-forest-industry-rails.jpg" alt="camp-info">
-    <div class="container-fluid">
-      <h2>Test Image 1</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec varius urna, ut luctus ex. Maecenas tincidunt feugiat tellus, </p>
-
-      <p><em>Submitted by Tom</em></p>
-    </div>
-  </div> -->
-
   <div class="well camp-comments">
-    <form id="add-comment-form">
-      <div class="form-group">
-        <textarea id="comment-box" class="form-control"></textarea>
-      </div>
-      <button id="add-comment-btn" class="btn btn-primary">Add Comment</button>
-    </form>
-    <hr>
-    
-    <?php foreach($comments as $comment) : ?>
+    <?php if(isset($_SESSION['logged_in'])) : ?>
+      <!-- <form id="add-comment-form" action="campinfo.php?post-id=<?php //echo $_GET['post-id']; ?>" method="post"> -->
+      <form id="add-comment-form" method="post">
+        <div class="form-group">
+          <textarea id="comment-box" name="comment-text" class="form-control" required></textarea>
+        </div>
+        <button id="add-comment-btn" name="add-comment" class="btn btn-primary">Add Comment</button>
+      </form>
+      <hr>
+    <?php endif; ?>
 
-    <p><?php echo $comment['username'] ?></p>
-    <p><?php echo $comment['comment_date'] ?></p>
-    <p><?php echo $comment['comment'] ?></p>
-    <hr>
-    
-    <?php endforeach; ?>
+    <?php if(count($comments) == 0) : ?>
+      <p class="text-center">No posted comments yet.</p>
+    <?php else: ?>
+      <?php foreach($comments as $comment) : ?>
+        <p><?php echo $comment['username'] ?></p>
+        <p><?php echo $comment['comment_date'] ?></p>
+
+        <?php if(isset($_SESSION['logged_in']) && $_SESSION['camper_data']['name'] == $comment['username']) : ?>
+          <p id="p-comment"><?php echo $comment['comment']; ?></p>
+          <a href="editcomment.php?comment-id=<?php echo $comment['id']; ?>&post-id=<?php echo $_GET['post-id']; ?>" class="btn btn-success btn-sm edit-btn">Edit</button>
+          <a href="" data-toggle="modal" data-target="#delete-comment-modal" class="btn btn-danger btn-sm delete-btn">Delete</a>
+
+          
+            <div class="modal" id="delete-comment-modal" role="dialog" aria-hidden="true">
+       
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Delete Comment</h4>
+                    </div>    
+                    <div class="modal-body">
+                      <p>Are you sure you want to delete this comment?</p>
+                    </div>
+                    <div class="modal-footer">
+                    <form action="campinfo.php?post-id=<?php echo $_GET['post-id']; ?>" method="post" role="form">
+                      <input type="hidden" name="comment-id" value="<?php echo $comment['id']; ?>">
+                      <button type="submit" name="delete-comment" class="btn btn-danger">Yes</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    </form>
+                    </div>
+                  </div><!-- modal-content -->
+                </div><!-- modal-dialog -->
+            </div><!-- modal -->
+          
+
+          <?php if(checkEditHistory($connection, $comment['id']) > 0) : ?>
+            <a href="" data-toggle="modal" data-target="#editHistoryModal" class="pull-right">Edited</a>
+            <div class="modal fade" id="editHistoryModal" role="dialog" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      <h4>Edit History</h4>
+                  </div>    
+                  <div class="modal-body">
+                    <?php $editedCommentsHistory = displayEditHistory($connection, $comment['id'], $post_id); ?>
+                    <?php foreach($editedCommentsHistory as $history) : ?>
+                      <p><?php echo $history['updated_comment_date']; ?></p>
+                      <p><?php echo $history['updated_comment']; ?></p>
+                    <?php endforeach; ?>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Back</button>
+                  </div>
+                </div><!-- modal-content -->
+              </div><!-- modal-dialog -->
+          </div><!-- modal -->
+          <?php endif; ?>
+        <?php else : ?>
+            <p><?php echo $comment['comment']; ?></p>        
+        <?php endif; ?>
+      <hr>
+      <?php endforeach; ?>
+    <?php endif; ?>
   </div>
-
-  <!-- <div class="well camp-comments">
-    <form id="add-comment-form">
-      <div class="form-group">
-        <textarea id="comment-box" class="form-control"></textarea>
-      </div>
-      <button id="add-comment-btn" class="btn btn-primary">Add Comment</button>
-    </form>
-    <hr>
-    <p>Scratchy</p>
-    <p>2017-06-05</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec varius urna, ut luctus ex. Maecenas tincidunt feugiat tellus, </p>
-    <hr>
-    <p>Scratchy</p>
-    <p>2017-06-05</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec varius urna, ut luctus ex. Maecenas tincidunt feugiat tellus, </p>
-    <hr>
-  </div> -->
-
-</div>
 
 <?php include('includes/footer.php'); ?>

@@ -1,4 +1,6 @@
-<?php include('includes/header.php'); ?>
+<?php 
+	include('includes/header.php'); 
+?>
 
 <div id="add-camp-div" class="container-fluid">
 	<form id="add-camp-form">

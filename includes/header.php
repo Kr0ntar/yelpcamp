@@ -1,3 +1,11 @@
+<?php 
+  include("functions.php");
+
+  if(isset($_GET['logout'])) {
+    logOut();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,9 +34,13 @@
           
           <div class="collapse navbar-collapse" id="collapse-navbar">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="login.php">Log In</a></li>
-              <li><a href="register.php">Sign Up</a></li>
-              
+              <?php if(isset($_SESSION['logged_in'])) : ?>
+                <li><a href="#">Welcome, <?php echo $_SESSION['camper_data']['name']; ?></a></li>
+                <li><a href="mainpage.php?logout">Log Out</a></li>
+              <?php else : ?>
+                <li><a href="login.php">Log In</a></li>
+                <li><a href="register.php">Sign Up</a></li>
+              <?php endif; ?>  
             </ul>
           </div>
         </div>
