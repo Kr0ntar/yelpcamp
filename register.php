@@ -1,33 +1,45 @@
-<?php 
+<?php
 	include('includes/header.php');
+
+	$email = "";
+	$username = "";
+	$msg = "";
+	if(isset($_POST['submit'])) {
+		if($_POST['reg-password'] !== $_POST['confirm-password']) {
+			echo '<div class="alert alert-danger"><p>Password does not match!</p></div>';
+		} else {
+			$msg = registerUser($connection);
+			if($msg !== "success") {
+				$email = $_POST['reg-email'];
+				$username = $_POST['reg-email'];
+				echo $msg;
+			} else {
+				echo '<div class="alert alert-success"><p>Registered successfully! <a href="login.php">Login Now!</a></p></div>';
+			}
+		}
+	}
 ?>
-
-<?php if($_POST) : ?>
-	<?php if($_POST['reg-password'] !== $_POST['confirm-password']) : ?>
-		<div class="alert alert-danger">
-			<p>Password does not match</p>
-		</div>
-	<?php else : echo registerUser($connection); ?>		
-	<?php endif; ?>
-<?php endif; ?>
-
 
 <div id="register-form-div" class="container-fluid">
 	<form id="reg-form" action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
 	  <h3>Sign Up Form</h3><br>
 	  <div class="form-group">
+	    <label for="reg-email">Email</label>
+	    <input type="email" name="reg-email" class="form-control" id="reg-email" placeholder="Email Address" value="<?php echo $email; ?>" required>
+	  </div>
+	  <div class="form-group">
 	    <label for="reg-username">Username</label>
-	    <input type="text" name="reg-username" class="form-control" id="reg-username" placeholder="Username" required>
+	    <input type="text" name="reg-username" class="form-control" id="reg-username" placeholder="Username" value="<?php echo $username; ?>" required>
 	  </div>
 	  <div class="form-group">
 	    <label for="reg-password">Password</label>
-	    <input type="password" name="reg-password" class="form-control" id="reg-password" placeholder="Password" required>
+	    <input type="password" name="reg-password" class="form-control" id="reg-password" placeholder="Password" minlength="8" maxlength="100" required>
 	  </div>
 	  <div class="form-group">
 	    <label for="confirm-password">Confirm Password</label>
 	    <input type="password" name="confirm-password" class="form-control" id="confirm-password" placeholder="Confirm Password" required>
 	  </div>
-	  <a href="login.php">Already Registered? Please Login</a><br><br>
+	  <a id="register-link" href="login.php">Already Registered? Please Login</a><br><br>
 	  <div id="reg-btns" class="pull-right">
 		  <button id="reg-btn" name="submit" type="submit" class="btn btn-primary">Register</button>
 		  <a href="register.php" id="reg-cancel-btn" class="btn btn-danger">Cancel</a>

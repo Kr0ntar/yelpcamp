@@ -49,6 +49,10 @@ nav {
 	font-size: 50px;
 }
 
+#register-form-div {
+	padding-bottom: 50px;
+}
+
 #login-form, #reg-form, #add-camp-form {
 	flex: 0 1 400px;
 	height: 60%;
@@ -60,7 +64,8 @@ nav {
 }
 
 #reg-form {
-	height: 75%;
+	margin-top: 48px;
+	height: 98%;
 }
 
 #add-camp-form {
@@ -116,6 +121,12 @@ footer {
 
 footer p {
 	color: #fff;
+}
+
+@media only screen and (max-width: 1371px) {
+	#register-form-div {
+		margin-bottom: 45px;
+	}
 }
 
 @media only screen and (max-width: 981px) {
@@ -176,7 +187,17 @@ footer p {
 }
 
 @media only screen and (max-width: 322px) {
+	#register-link {
+		font-size: 14px;
+	}
+
 	footer p {
+		font-size: 13px;
+	}
+}
+
+@media only screen and (max-width: 313px) {
+	#register-link {
 		font-size: 13px;
 	}
 }

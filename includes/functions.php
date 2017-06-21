@@ -3,33 +3,39 @@
 	
 	function registerUser($conn) {
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		$email = $post['reg-email'];
 		$username = $post['reg-username'];
 		$password = md5($post['reg-password']);
 
-		$query = "SELECT username, password FROM campers WHERE username = :user AND password = :pass";
+		$query = "SELECT * FROM campers WHERE email = :email OR username = :user";
 		$statement = $conn->prepare($query);
+		$statement->bindValue(':email', $email, PDO::PARAM_STR);
 		$statement->bindValue(':user', $username, PDO::PARAM_STR);
-		$statement->bindValue(':pass', $password, PDO::PARAM_STR);
 		$statement->execute();
-		$count = count($statement->fetchAll());
+		$count = $statement->fetch();
 		$statement->closeCursor();
 
-		if($count > 0) {
-			$error = '<div class="alert alert-danger">';
-			$error .= '<p>User already exists</p>';
-			$error .= '</div>';
-			return $error;
+		if($count) {
+			if($count['username'] === $username && $count['email'] === $email) {
+				$error = '<div class="alert alert-danger"><p>User already exists!</p></div>';
+				return $error;
+			} else if($count['email'] === $email) {
+				$error = '<div class="alert alert-danger"><p>Email already taken!</p></div>';
+				return $error;
+			} else if($count['username'] === $username) {
+				$error = '<div class="alert alert-danger"><p>Username not available!</p></div>';
+				return $error;
+			}		
 		} else {
-			$query = "INSERT INTO campers (username, password) VALUES (:user, :pass)";
+			$query = "INSERT INTO campers (email, username, password) VALUES (:email, :user, :pass)";
 			$statement = $conn->prepare($query);
+			$statement->bindValue(':email', $email, PDO::PARAM_STR);
 			$statement->bindValue(':user', $username, PDO::PARAM_STR);
 			$statement->bindValue(':pass', $password, PDO::PARAM_STR);
 			$statement->execute();
 			$statement->closeCursor();
 
-			$msg = '<div class="alert alert-success">';
-			$msg .= '<p>Registered successfully!</p>';
-			$msg .= '</div>';
+			$msg = "success";
 			return $msg;
 		}
 	}
