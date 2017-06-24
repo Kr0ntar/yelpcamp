@@ -3,6 +3,7 @@
 
   if(isset($_GET['logout'])) {
     logOut();
+    header("Location: index.php");
   }
 ?>
 
@@ -28,15 +29,20 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">Yelp Camp</a>
+            <?php if(isset($_SESSION['logged_in'])) : ?>
+              <a class="navbar-brand" href="mainpage.php">Yelp Camp</a>
+            <?php else : ?>
+              <a class="navbar-brand" href="index.php">Yelp Camp</a>
+            <?php endif; ?>
           </div>
 
           
           <div class="collapse navbar-collapse" id="collapse-navbar">
             <ul class="nav navbar-nav navbar-right">
               <?php if(isset($_SESSION['logged_in'])) : ?>
-                <li><a href="#">Welcome, <?php echo $_SESSION['camper_data']['name']; ?></a></li>
-                <li><a href="mainpage.php?logout">Log Out</a></li>
+                <li><a href="user.php">Welcome, <?php echo $_SESSION['camper_data']['name']; ?></a></li>
+                <li><a id="logout-btn" href="?logout">Log Out</a></li>
+                <!-- <li><form method="post"><button id="logout-btn" name="log-out">Log Out</button></form></li> -->
               <?php else : ?>
                 <li><a href="login.php">Log In</a></li>
                 <li><a href="register.php">Sign Up</a></li>

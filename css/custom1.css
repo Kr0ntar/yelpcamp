@@ -19,10 +19,14 @@ nav {
 	color: #fff !important;
 }
 
-#landing-page, #login-form-div, #register-form-div, #main-heading, #add-camp-div, #camp-info-div {
+#landing-page, #login-form-div, #register-form-div, #main-heading, #add-camp-div, #camp-info-div, #user-info-div, #edit-account-div, #edit-comment-div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+#user-info-div {
+	flex-direction: column;
 }
 
 #landing-page, #login-form-div, #register-form-div {
@@ -53,7 +57,7 @@ nav {
 	padding-bottom: 50px;
 }
 
-#login-form, #reg-form, #add-camp-form {
+#login-form, #reg-form, #add-camp-form, #edit-username-form, #edit-comment-form,  .edit-account-form {
 	flex: 0 1 400px;
 	height: 60%;
 	border: 1px solid #bbb;
@@ -71,6 +75,10 @@ nav {
 #add-camp-form {
 	margin-top: 33px;
 	padding: 20px;
+}
+
+#edit-comment-form {
+	margin-top: 90px !important;
 }
 
 #main-heading-div {
@@ -106,6 +114,43 @@ nav {
 
 #comment-box {
 	resize: none;
+}
+
+#user-password {
+	outline: 0;
+	border: none;
+	background: none;
+}
+
+#delete-user-btn {
+	margin: 0 auto;
+	display: block;
+}
+
+#user-info-table {
+	width: 50%;
+	margin-top: 120px;
+}
+
+.table tbody > tr > td.vert-aligned {
+    vertical-align: middle;
+}
+
+.table tbody > tr > td.centered {
+    text-align: center;
+}
+
+.change-sm-btn {
+	display: none;
+}
+
+.edit-account-form {
+	margin-top: 115px !important;
+}
+
+#edit-password-form {
+	margin-top: 40px !important;
+	margin-bottom: 100px !important;
 }
 
 footer {
@@ -168,6 +213,20 @@ footer p {
 @media only screen and (max-width: 396px) {
 	#add-camp-form h3 {
 		font-size: 20px;
+	}
+}
+
+@media only screen and (max-width: 360px) {
+	#user-info-table {
+		font-size: 12px;
+	}
+
+	.change-sm-btn {
+		display: block;
+	}
+
+	.change-lg-btn {
+		display: none;
 	}
 }
 

@@ -12,17 +12,17 @@
 		$statement->bindValue(':email', $email, PDO::PARAM_STR);
 		$statement->bindValue(':user', $username, PDO::PARAM_STR);
 		$statement->execute();
-		$count = $statement->fetch();
+		$userExists = $statement->fetch();
 		$statement->closeCursor();
 
-		if($count) {
-			if($count['username'] === $username && $count['email'] === $email) {
+		if($userExists) {
+			if($userExists['username'] === $username && $userExists['email'] === $email) {
 				$error = '<div class="alert alert-danger"><p>User already exists!</p></div>';
 				return $error;
-			} else if($count['email'] === $email) {
+			} else if($userExists['email'] === $email) {
 				$error = '<div class="alert alert-danger"><p>Email already taken!</p></div>';
 				return $error;
-			} else if($count['username'] === $username) {
+			} else if($userExists['username'] === $username) {
 				$error = '<div class="alert alert-danger"><p>Username not available!</p></div>';
 				return $error;
 			}		
@@ -60,7 +60,7 @@
 				return '<div class="alert alert-danger"><p>Invalid Password!</p></div>';
 			} else {
 				$_SESSION['logged_in'] = true;
-				$_SESSION['camper_data'] = ["id"=>$matchFound['id'], "name"=>$matchFound['username']];
+				$_SESSION['camper_data'] = ["id"=>$matchFound['id'], "email"=>$matchFound['email'], "name"=>$matchFound['username'], "password"=>$matchFound['password']];
 				header("Location: mainpage.php");
 			}
 		} else {
@@ -72,6 +72,66 @@
 		unset($_SESSION['logged_in']);
         unset($_SESSION['camper_data']);
         session_destroy();
+	}
+
+	function editUsernameEmail($conn) {
+		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+		if(isset($post['edit-username'])) {
+			$query = "UPDATE campers SET username = :username WHERE id = :id";
+			$statement = $conn->prepare($query);
+			$statement->bindValue(':username', $post['edit-username']);
+		} else if(isset($post['edit-email'])) {
+			$query = "UPDATE campers SET email = :email WHERE id = :id";
+			$statement = $conn->prepare($query);
+			$statement->bindValue(':email', $post['edit-email']);
+		}
+
+		$statement->bindValue(':id', $_SESSION['camper_data']['id']);
+		$statement->execute();
+		$statement->closeCursor();
+
+		$query = "SELECT * FROM campers WHERE id = :id";
+		$statement = $conn->prepare($query);
+		$statement->bindValue(':id', $_SESSION['camper_data']['id']);
+		$statement->execute();
+		$newUser = $statement->fetch();
+		$statement->closeCursor();
+		
+		$_SESSION['camper_data']['name'] = $newUser['username'];
+		$_SESSION['camper_data']['email'] = $newUser['email'];
+		$_SESSION['edited'] = "success";
+
+		header("Location: user.php");
+	}
+
+	function changePassword($conn) {
+		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		$old_password = md5($post['old-password']);
+		$new_password = md5($post['new-password']);
+
+		$query = "UPDATE campers SET password = :password WHERE id = :id";
+		$statement = $conn->prepare($query);
+		$statement->bindValue(':id', $_SESSION['camper_data']['id']);
+		$statement->bindValue(':password', $new_password);
+		$statement->execute();
+		$statement->closeCursor();
+
+		logOut();
+
+		header("Location: login.php?change_pass=true");
+	}
+
+	function deleteUser($conn) {
+		$query = "DELETE FROM campers WHERE id = :id";
+		$statement = $conn->prepare($query);
+		$statement->bindValue(':id', $_SESSION['camper_data']['id']);
+		$statement->execute();
+		$statement->closeCursor();
+
+		logOut();
+
+		header("Location: mainpage.php?user_deleted=true");
 	}
 
 	function showCamps($conn) {
@@ -117,7 +177,7 @@
 		$statement->execute();
 		$statement->closeCursor();
 
-		$_SESSION['edit-comment'] = "success";
+		$_SESSION['edited'] = "success";
 
 		header("Location: campinfo.php?post-id=$post_id");
 	}

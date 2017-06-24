@@ -13,11 +13,26 @@
 	}
 
 	if(isset($_GET['sign-in'])) {
-		$msg = '<div class="alert alert-danger">';
-		$msg .= '<p>You must be logged in first!</p>';
-		$msg .= '</div>';
+		echo '<div class="alert alert-danger"><p>You must be logged in first!</p></div>';
+	}
 
-		echo $msg;
+	if(isset($_SESSION['edited'])) {
+		echo '<div class="alert alert-success"><p>Changes saved.</p></div>';
+	}
+
+	if(isset($_POST['edit-password-btn'])) {
+		if($_POST['new-password'] !== $_POST['confirm-new-password']) {
+			$value =  '<div class="alert alert-danger"><p>Password does not match!</p></div>';
+		} else if(md5($_POST['old-password']) !== $_SESSION['camper_data']['password']) {
+			$value =  '<div class="alert alert-danger"><p>Old password is incorrect!</p></div>';
+		}
+		else {
+			changePassword($connection);
+		}
+	}
+
+	if(isset($_GET['change_pass'])) {
+		echo '<div class="alert alert-success"><p>Password changed! Login with your new password.</p></div>';
 	}
 ?>
 

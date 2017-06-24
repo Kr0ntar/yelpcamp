@@ -19,14 +19,11 @@
       $comments = displayComments($connection, $post_id);
   }
 
- 
+  if(isset($_SESSION['edited'])) {
+      $msg = '<div class="alert alert-success"><p>Comment updated!</p></div>';
+      unset($_SESSION['edited']);
+  }
 ?>
-
-
-
-<!-- <div class="alert alert-success add-comment-msg">
-  <p>Comment added!</p>
-</div> -->
 
 <?php echo $msg; ?>
 
@@ -44,7 +41,6 @@
 
   <div class="well camp-comments">
     <?php if(isset($_SESSION['logged_in'])) : ?>
-      <!-- <form id="add-comment-form" action="campinfo.php?post-id=<?php //echo $_GET['post-id']; ?>" method="post"> -->
       <form id="add-comment-form" method="post">
         <div class="form-group">
           <textarea id="comment-box" name="comment-text" class="form-control" required></textarea>
@@ -65,10 +61,8 @@
           <p id="p-comment"><?php echo $comment['comment']; ?></p>
           <a href="editcomment.php?comment-id=<?php echo $comment['id']; ?>&post-id=<?php echo $_GET['post-id']; ?>" class="btn btn-success btn-sm edit-btn">Edit</button>
           <a href="" data-toggle="modal" data-target="#delete-comment-modal" class="btn btn-danger btn-sm delete-btn">Delete</a>
-
           
             <div class="modal" id="delete-comment-modal" role="dialog" aria-hidden="true">
-       
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -88,7 +82,6 @@
                 </div><!-- modal-dialog -->
             </div><!-- modal -->
           
-
           <?php if(checkEditHistory($connection, $comment['id']) > 0) : ?>
             <a href="" data-toggle="modal" data-target="#editHistoryModal" class="pull-right">Edited</a>
             <div class="modal fade" id="editHistoryModal" role="dialog" aria-hidden="true">

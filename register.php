@@ -38,7 +38,9 @@
 	  <div class="form-group">
 	    <label for="confirm-password">Confirm Password</label>
 	    <input type="password" name="confirm-password" class="form-control" id="confirm-password" placeholder="Confirm Password" required>
+	    <p>*Password must be at least 8 characters</p>
 	  </div>
+
 	  <a id="register-link" href="login.php">Already Registered? Please Login</a><br><br>
 	  <div id="reg-btns" class="pull-right">
 		  <button id="reg-btn" name="submit" type="submit" class="btn btn-primary">Register</button>

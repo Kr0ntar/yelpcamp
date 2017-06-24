@@ -4,12 +4,12 @@
 	$camp_posts = showCamps($connection);
 	$sign_in = isset($_SESSION['logged_in']) ? 'addcampground.php' : 'login.php?sign-in';
 
-	if(isset($_GET['logout'])) {
-		$msg = '<div class="alert alert-success">';
-		$msg .= '<p>You are logged out!</p>';
-		$msg .= '</div>';
+	if(isset($_POST['delete-user'])) {
+		deleteUser($connection);
+	}
 
-		echo $msg;
+	if(isset($_GET['user_deleted'])) {
+		echo '<div class="alert alert-danger"><p>User Account successfully deleted!</p></div>';
 	}
 ?>
 
