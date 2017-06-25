@@ -42,7 +42,6 @@
               <?php if(isset($_SESSION['logged_in'])) : ?>
                 <li><a href="user.php">Welcome, <?php echo $_SESSION['camper_data']['name']; ?></a></li>
                 <li><a id="logout-btn" href="?logout">Log Out</a></li>
-                <!-- <li><form method="post"><button id="logout-btn" name="log-out">Log Out</button></form></li> -->
               <?php else : ?>
                 <li><a href="login.php">Log In</a></li>
                 <li><a href="register.php">Sign Up</a></li>

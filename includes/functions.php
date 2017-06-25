@@ -102,6 +102,22 @@
 		$_SESSION['camper_data']['email'] = $newUser['email'];
 		$_SESSION['edited'] = "success";
 
+		$statement1 = $conn->prepare("UPDATE camp_posts SET username = :username WHERE user_id = :user_id");
+		$statement2 = $conn->prepare("UPDATE comments SET username = :username WHERE user_id = :user_id");
+		$statement3 = $conn->prepare("UPDATE edit_comment_history SET username = :username WHERE user_id = :user_id");
+		$statement1->bindValue(':user_id', $_SESSION['camper_data']['id']);
+		$statement1->bindValue(':username', $_SESSION['camper_data']['name']);
+		$statement2->bindValue(':user_id', $_SESSION['camper_data']['id']);
+		$statement2->bindValue(':username', $_SESSION['camper_data']['name']);
+		$statement3->bindValue(':user_id', $_SESSION['camper_data']['id']);
+		$statement3->bindValue(':username', $_SESSION['camper_data']['name']);
+		$statement1->execute();
+		$statement1->closeCursor();
+		$statement2->execute();
+		$statement2->closeCursor();
+		$statement3->execute();
+		$statement3->closeCursor();
+
 		header("Location: user.php");
 	}
 
@@ -123,19 +139,101 @@
 	}
 
 	function deleteUser($conn) {
-		$query = "DELETE FROM campers WHERE id = :id";
-		$statement = $conn->prepare($query);
-		$statement->bindValue(':id', $_SESSION['camper_data']['id']);
-		$statement->execute();
-		$statement->closeCursor();
+		$statement1 = $conn->prepare("DELETE FROM campers WHERE id = :id");
+		$statement2 = $conn->prepare("DELETE FROM camp_posts WHERE user_id = :id");
+		$statement3 = $conn->prepare("DELETE FROM comments WHERE user_id = :id");
+		$statement4 = $conn->prepare("DELETE FROM edit_comment_history WHERE user_id = :id");
+
+		$statement1->bindValue(':id', $_SESSION['camper_data']['id']);
+		$statement2->bindValue(':id', $_SESSION['camper_data']['id']);
+		$statement3->bindValue(':id', $_SESSION['camper_data']['id']);
+
+		$statement1->execute();
+		$statement1->closeCursor();
+		$statement2->execute();
+		$statement2->closeCursor();
+		$statement3->execute();
+		$statement3->closeCursor();
 
 		logOut();
 
 		header("Location: mainpage.php?user_deleted=true");
 	}
 
+	function addCamp($conn) {
+		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		$title = $post['camp-name'];
+		$img_url = $post['camp-img-url'];
+		$description = $post['description'];
+		$date = date('Y-m-d H:i:s');
+
+		$query = "INSERT INTO camp_posts(user_id, username, title, description, img_link, post_date) 
+				  VALUES(:user_id, :username, :title, :description, :img_link, :post_date)";
+		$statement = $conn->prepare($query);
+		$statement->bindValue(':user_id', $_SESSION['camper_data']['id']);
+		$statement->bindValue(':username', $_SESSION['camper_data']['name']);
+		$statement->bindValue(':title', $title);
+		$statement->bindValue(':description', $description);
+		$statement->bindValue(':img_link', $img_url);
+		$statement->bindValue(':post_date', $date);
+		$statement->execute();
+		$statement->closeCursor();
+
+		return '<div class="alert alert-success"><p>New campsite added!</p></div>';
+	}
+
+	function editCamp($conn, $post_id) {
+		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		$title = $post['edit-camp-name'];
+		$img_url = $post['edit-camp-img'];
+		$description = $post['edit-description'];
+		$date = date('Y-m-d H:i:s');
+
+		$query = "UPDATE camp_posts SET title = :title,
+				  description = :description,
+				  img_link = :img_link,
+				  post_date = :post_date
+				  WHERE id = :post_id";
+		
+		$statement = $conn->prepare($query);
+		$statement->bindValue(':post_id', $post_id);
+		$statement->bindValue(':title', $title);
+		$statement->bindValue(':description', $description);
+		$statement->bindValue(':img_link', $img_url);
+		$statement->bindValue(':post_date', $date);
+		$statement->execute();
+		$statement->closeCursor();
+
+		$_SESSION['post-edited'] = "success";
+
+		header("Location: campinfo.php?post-id=$post_id");		
+	}
+
+	function deleteCamp($conn, $post_id) {
+		$statement1 = $conn->prepare("DELETE FROM camp_posts WHERE id = :post_id");
+		$statement2 = $conn->prepare("DELETE FROM comments WHERE post_id = :post_id");
+		$statement3 = $conn->prepare("DELETE FROM edit_comment_history WHERE post_id = :post_id");
+
+		$statement1->bindValue(':post_id', $post_id);
+		$statement2->bindValue(':post_id', $post_id);
+		$statement3->bindValue(':post_id', $post_id);
+
+		$statement1->execute();
+		$statement1->closeCursor();
+
+		$statement2->execute();
+		$statement2->closeCursor();
+
+		$statement3->execute();
+		$statement3->closeCursor();
+
+		$_SESSION['post-deleted'] = "success";
+
+		header("Location: mainpage.php");
+	}
+
 	function showCamps($conn) {
-		$query = "SELECT * FROM camp_posts";
+		$query = "SELECT * FROM camp_posts ORDER BY title";
 		$statement = $conn->prepare($query);
 		$statement->execute();
 		$camp_posts = $statement->fetchAll();
@@ -169,34 +267,32 @@
 	function editComment($conn, $comment_id, $post_id) {
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 		$updatedComment = $post['edit-comment-box'];
+		$date = date('Y-m-d H:i:s');
 
-		$query = "UPDATE comments SET comment = :edit_comment WHERE id = :comment_id";
-		$statement = $conn->prepare($query);
-		$statement->bindValue(':edit_comment', $updatedComment);
-		$statement->bindValue(':comment_id', $comment_id);
-		$statement->execute();
-		$statement->closeCursor();
+		$query = "INSERT INTO edit_comment_history(comment_id, post_id, user_id, username, updated_comment, updated_comment_date) 
+				  VALUES(:comment_id, :post_id, :user_id, :username, :updated_comment, :updated_comment_date)";
+		// $query = "UPDATE comments SET comment = :edit_comment WHERE id = :comment_id";
+		$statement1 = $conn->prepare("UPDATE comments SET comment = :edit_comment WHERE id = :comment_id");
+		$statement2 = $conn->prepare($query);
+
+		$statement1->bindValue(':edit_comment', $updatedComment);
+		$statement1->bindValue(':comment_id', $comment_id);
+
+		$statement2->bindValue(':comment_id', $comment_id);
+		$statement2->bindValue(':post_id', $post_id);
+		$statement2->bindValue(':user_id', $_SESSION['camper_data']['id']);
+		$statement2->bindValue(':username', $_SESSION['camper_data']['name']);
+		$statement2->bindValue(':updated_comment', $updatedComment);
+		$statement2->bindValue(':updated_comment_date', $date);
+
+		$statement1->execute();
+		$statement1->closeCursor();
+		$statement2->execute();
+		$statement2->closeCursor();
 
 		$_SESSION['edited'] = "success";
 
 		header("Location: campinfo.php?post-id=$post_id");
-	}
-
-	function insertEditHistory($conn, $comment_id, $post_id) {
-		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-		$updatedComment = $post['edit-comment-box'];
-		$date = date('Y-m-d H:i:s');
-
-		$query = "INSERT INTO edit_comment_history(comment_id, post_id, username, updated_comment, updated_comment_date) 
-				  VALUES(:comment_id, :post_id, :username, :updated_comment, :updated_comment_date)";
-		$statement = $conn->prepare($query);
-		$statement->bindValue(':comment_id', $comment_id);
-		$statement->bindValue(':post_id', $post_id);
-		$statement->bindValue(':username', $_SESSION['camper_data']['name']);
-		$statement->bindValue(':updated_comment', $updatedComment);
-		$statement->bindValue(':updated_comment_date', $date);
-		$statement->execute();
-		$statement->closeCursor();
 	}
 
 	function commentForEditing($conn, $id) {
@@ -259,26 +355,20 @@
 		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 		$comment_id = $post['comment-id'];
 
-		$query = "DELETE FROM comments WHERE id = :comment_id ";
-		$statement = $conn->prepare($query);
-		$statement->bindValue(':comment_id', $comment_id);
-		$statement->execute();
-		$statement->closeCursor();
+		$statement1 = $conn->prepare("DELETE FROM comments WHERE id = :comment_id");
+		$statement2 = $conn->prepare("DELETE FROM edit_comment_history WHERE comment_id = :comment_id");
+
+		$statement1->bindValue(':comment_id', $comment_id);
+		$statement2->bindValue(':comment_id', $comment_id);
+		
+		$statement1->execute();
+		$statement1->closeCursor();
+
+		$statement2->execute();
+		$statement2->closeCursor();
 
 		$msg = '<div class="alert alert-danger"><p>Comment deleted!</p></div>';
 
 		echo $msg;
 	}
-
-	function deleteCommentHistory($conn, $post_id) {
-		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-		$comment_id = $post['comment-id'];
-
-		$query = "DELETE FROM edit_comment_history WHERE comment_id = :comment_id ";
-		$statement = $conn->prepare($query);
-		$statement->bindValue(':comment_id', $comment_id);
-		$statement->execute();
-		$statement->closeCursor();	
-	}
-
 ?>

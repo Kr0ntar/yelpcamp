@@ -19,7 +19,7 @@ nav {
 	color: #fff !important;
 }
 
-#landing-page, #login-form-div, #register-form-div, #main-heading, #add-camp-div, #camp-info-div, #user-info-div, #edit-account-div, #edit-comment-div {
+#landing-page, #login-form-div, #register-form-div, #main-heading, #add-camp-div, #edit-camp-div, #camp-info-div, #user-info-div, #edit-account-div, #edit-comment-div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -57,14 +57,14 @@ nav {
 	padding-bottom: 50px;
 }
 
-#login-form, #reg-form, #add-camp-form, #edit-username-form, #edit-comment-form,  .edit-account-form {
+#login-form, #reg-form, #add-camp-form, #edit-camp-form, #edit-username-form, #edit-comment-form, .edit-account-form {
 	flex: 0 1 400px;
 	height: 60%;
 	border: 1px solid #bbb;
 	box-shadow: 5px 5px 10px #ddd;
 	border-radius: 10px;
 	padding: 30px;
-	margin: 0;
+	/*margin: 0;*/
 }
 
 #reg-form {
@@ -72,7 +72,7 @@ nav {
 	height: 98%;
 }
 
-#add-camp-form {
+#add-camp-form, #edit-camp-form {
 	margin-top: 33px;
 	padding: 20px;
 }
@@ -110,6 +110,10 @@ nav {
 
 .camp-img, .camp-comments {
 	width: 60%;
+}
+
+.camp-img img {
+	width: 100%;
 }
 
 #comment-box {

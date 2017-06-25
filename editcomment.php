@@ -12,7 +12,6 @@
 		if($unedited_comment === $_POST['edit-comment-box']) {
 			header("Location: campinfo.php?post-id=$post_id");
 		} else {
-			insertEditHistory($connection, $comment_id, $post_id);
 			editComment($connection, $comment_id, $post_id);
 		}
 	}

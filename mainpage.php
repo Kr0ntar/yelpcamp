@@ -9,7 +9,17 @@
 	}
 
 	if(isset($_GET['user_deleted'])) {
-		echo '<div class="alert alert-danger"><p>User Account successfully deleted!</p></div>';
+		echo '<div class="alert alert-danger"><p>User Account deleted!</p></div>';
+	}
+
+	if(isset($_POST['add-camp'])) {
+		echo addCamp($connection);
+		$camp_posts = showCamps($connection);
+	}
+
+	if(isset($_SESSION['post-deleted'])) {
+		echo '<div class="alert alert-danger"><p>Camp post deleted!</p></div>';
+      	unset($_SESSION['post-deleted']);
 	}
 ?>
 
@@ -23,10 +33,14 @@
 	    <div class="row">
 	    	<?php foreach($camp_posts as $camp) : ?>
 
-	    	<div class="col-md-3 col-sm-6">
+	    	<div class="col-lg-3 col-sm-6">
 	    		<div class="thumbnail camp-thumbnails">
 	    			<img src="<?php echo $camp['img_link']; ?>" alt="campground">
-	    			<h4 class="text-center"><?php echo $camp['title']; ?> </h4>
+	    			<?php if(strlen($camp['title']) > 25) : ?>
+	    				<h4 id="camp-title" class="text-center"><?php echo substr($camp['title'], 0, 22) . "..."; ?> </h4>
+	    			<?php else: ?>
+	    				<h4 id="camp-title" class="text-center"><?php echo $camp['title']; ?> </h4>
+	    			<?php endif; ?>
 	    			<a href="campinfo.php?post-id=<?php echo $camp['id']; ?>"><p class="text-center">More Info...</p></a>		
 	    		</div>
 	    	</div>

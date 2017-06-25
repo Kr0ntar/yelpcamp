@@ -3,22 +3,22 @@
 ?>
 
 <div id="add-camp-div" class="container-fluid">
-	<form id="add-camp-form">
+	<form id="add-camp-form" action="mainpage.php" method="post">
 	  <h3>Suggest a New Campground</h3><br>
 	  <div class="form-group">
 	    <label for="campname">Camp Name</label>
-	    <input type="text" name="campname" class="form-control" id="campname" placeholder="Camp Name">
+	    <input type="text" name="camp-name" class="form-control" id="campname" placeholder="Camp Name" required>
 	  </div>
 	  <div class="form-group">
 	    <label for="img-url">Image URL</label>
-	    <input type="url" name="img-url" class="form-control" id="img-url" placeholder="Image URL">
+	    <input type="url" name="camp-img-url" class="form-control" id="img-url" placeholder="Image URL" required>
 	  </div>
 	  <div class="form-group">
 	    <label for="description">Description</label>
 	    <textarea name="description" id="description" class="form-control" placeholder="Description"></textarea><br>
 	  </div>
 	  <div id="add-camp-btns" class="pull-right">
-	  	<button id="add-camp-btn" type="submit" class="btn btn-primary">Add Campground</button>
+	  	<button id="add-camp-btn" name="add-camp" type="submit" class="btn btn-primary">Add Campground</button>
 	  	<a href="mainpage.php" class="btn btn-danger">Cancel</a>
 	  </div>
 	</form>
