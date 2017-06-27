@@ -38,6 +38,14 @@
 	if(isset($_GET['change_pass'])) {
 		echo '<div class="alert alert-success"><p>Password changed! Login with your new password.</p></div>';
 	}
+
+	if($msg) {
+		echo '<style>
+				#forgot-account-link { 
+					display: none;
+				}
+			  </style>';
+	}
 ?>
 
 <div id="login-form-div" class="container-fluid">
@@ -52,7 +60,8 @@
 	    <input type="password" name="login-password" class="form-control" id="login-password" placeholder="Password" required >
 	  </div>
 	  <?php echo $msg; ?>
-	  <br>
+	  <p><a href="#" id="forgot-account-link">Forgot Account?</a></p>
+	  <!-- <br> -->
 	  <div id="login-btns" class="pull-right">
 		  <button id="login-btn" name="login-submit" type="submit" class="btn btn-primary">Login</button>
 		  <a href="login.php" id="login-cancel-btn" class="btn btn-danger">Cancel</a>
