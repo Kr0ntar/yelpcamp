@@ -6,9 +6,11 @@
 
 	if(isset($_POST['login-submit'])) {
 		$msg = loginUser($connection);
+		if($msg) {
+			echo '<style>#login-form { height: 70%; }</style>';
+		}
 		if($msg !== "success") {
 			$email_username = $_POST['email-username'];
-			echo $msg;
 		}
 	}
 
@@ -22,9 +24,11 @@
 
 	if(isset($_POST['edit-password-btn'])) {
 		if($_POST['new-password'] !== $_POST['confirm-new-password']) {
-			$value =  '<div class="alert alert-danger"><p>Password does not match!</p></div>';
+			$_SESSION['password-mismatch'] = true;
+			header("Location: editaccount.php?password");
 		} else if(md5($_POST['old-password']) !== $_SESSION['camper_data']['password']) {
-			$value =  '<div class="alert alert-danger"><p>Old password is incorrect!</p></div>';
+			$_SESSION['wrong-old-password'] = true;
+			header("Location: editaccount.php?password");
 		}
 		else {
 			changePassword($connection);
@@ -45,8 +49,10 @@
 	  </div>
 	  <div class="form-group">
 	    <label for="password">Password</label>
-	    <input type="password" name="login-password" class="form-control" id="login-password" placeholder="Password" required>
-	  </div><br>
+	    <input type="password" name="login-password" class="form-control" id="login-password" placeholder="Password" required >
+	  </div>
+	  <?php echo $msg; ?>
+	  <br>
 	  <div id="login-btns" class="pull-right">
 		  <button id="login-btn" name="login-submit" type="submit" class="btn btn-primary">Login</button>
 		  <a href="login.php" id="login-cancel-btn" class="btn btn-danger">Cancel</a>

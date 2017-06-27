@@ -7,6 +7,10 @@
 		$msg = '<div class="alert alert-success"><p>Changes saved!</p></div>';
       	unset($_SESSION['edited']);
 	}
+
+	if($msg) {
+		echo '<style>#user-info-table { margin-top: 50px; }</style>';
+	}
 ?>
 
 <?php echo $msg; ?>

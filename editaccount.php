@@ -1,7 +1,7 @@
 <?php 
 	include('includes/header.php');
 
-	$value = ""; 
+	$value = "";
 
 	if(isset($_GET['username'])) {
 		$value = $_SESSION['camper_data']['name'];
@@ -15,6 +15,16 @@
 		} else {
 			editUsernameEmail($connection);
 		}
+	}
+
+	if(isset($_SESSION['password-mismatch'])) {
+		$value = '<div class="alert alert-danger"><p>Password does not match!</p></div>';
+		unset($_SESSION['password-mismatch']);
+	}
+
+	if(isset($_SESSION['wrong-old-password'])) {
+		$value = '<div class="alert alert-danger"><p>Old password is incorrect!</p></div>';
+		unset($_SESSION['wrong-old-password']);
 	}
 ?>
 

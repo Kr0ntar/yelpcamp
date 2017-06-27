@@ -17,7 +17,7 @@
 
 		if($userExists) {
 			if($userExists['username'] === $username && $userExists['email'] === $email) {
-				$error = '<div class="alert alert-danger"><p>User already exists!</p></div>';
+				$error = '<div class="alert alert-danger errors"><p>User already exists!</p></div>';
 				return $error;
 			} else if($userExists['email'] === $email) {
 				$error = '<div class="alert alert-danger"><p>Email already taken!</p></div>';
@@ -57,7 +57,7 @@
 
 		if($matchFound) {
 			if( ($matchFound['email'] === $email || $matchFound['username'] === $username) && $matchFound['password'] !== $password) {
-				return '<div class="alert alert-danger"><p>Invalid Password!</p></div>';
+				return '<div class="alert alert-danger"><p>Incorrect Password! <a href="#">Forgot Password?</a></p></div>';
 			} else {
 				$_SESSION['logged_in'] = true;
 				$_SESSION['camper_data'] = ["id"=>$matchFound['id'], "email"=>$matchFound['email'], "name"=>$matchFound['username'], "password"=>$matchFound['password']];
@@ -134,7 +134,7 @@
 		$statement->closeCursor();
 
 		logOut();
-
+		
 		header("Location: login.php?change_pass=true");
 	}
 

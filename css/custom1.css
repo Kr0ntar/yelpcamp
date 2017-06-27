@@ -53,28 +53,35 @@ nav {
 	font-size: 50px;
 }
 
-#register-form-div {
-	padding-bottom: 50px;
-}
-
 #login-form, #reg-form, #add-camp-form, #edit-camp-form, #edit-username-form, #edit-comment-form, .edit-account-form {
 	flex: 0 1 400px;
 	height: 60%;
 	border: 1px solid #bbb;
 	box-shadow: 5px 5px 10px #ddd;
 	border-radius: 10px;
-	padding: 30px;
-	/*margin: 0;*/
+	padding: 20px;
+}
+
+#login-form {
+	margin-top: 0;
+	margin-bottom: 40px;
 }
 
 #reg-form {
-	margin-top: 48px;
-	height: 98%;
+	height: 85%;
 }
 
-#add-camp-form, #edit-camp-form {
+#edit-camp-form {
 	margin-top: 33px;
 	padding: 20px;
+}
+
+#add-camp-form {
+	margin-top: 30px;
+}
+
+#add-btn-div-sm, #add-btn-div-sm button, #add-btn-div-sm a  {
+	display: none;
 }
 
 #edit-comment-form {
@@ -106,6 +113,10 @@ nav {
 	flex-direction: column;
 	padding: 20px;
 	margin-bottom: 30px;
+}
+
+.camp-description {
+	padding-bottom: 10px;
 }
 
 .camp-img, .camp-comments {
@@ -146,6 +157,10 @@ nav {
 
 .change-sm-btn {
 	display: none;
+}
+
+.edit-btn {
+	margin-right: 5px;
 }
 
 .edit-account-form {
@@ -249,18 +264,54 @@ footer p {
 	}
 }
 
+@media only screen and (max-width: 349px) {
+	#login-form {
+		margin-bottom: 45px;
+	}
+
+	footer p {
+		font-size: 12px;
+	}
+}
+
 @media only screen and (max-width: 322px) {
 	#register-link {
 		font-size: 14px;
 	}
+}
 
-	footer p {
-		font-size: 13px;
+@media only screen and (max-width: 314px) {
+	#registered-link {
+		font-size: 12px;
+	}
+
+	#add-camp-form h3 {
+		font-size: 17px;
 	}
 }
 
-@media only screen and (max-width: 313px) {
-	#register-link {
-		font-size: 13px;
+@media only screen and (max-width: 310px) {
+	#reg-form {
+		height: 90%;
+	}
+}
+
+@media only screen and (max-width: 298px) {
+	#registered-link {
+		font-size: 11px;
+	}
+
+	#add-camp-form h3 {
+		font-size: 16px;
+	}
+
+	footer p {
+		font-size: 10px;
+	}
+}
+
+@media only screen and (max-width: 279px) {
+	#reg-form {
+		height: 90%;
 	}
 }

@@ -6,17 +6,27 @@
 	$msg = "";
 	if(isset($_POST['submit'])) {
 		if($_POST['reg-password'] !== $_POST['confirm-password']) {
-			echo '<div class="alert alert-danger"><p>Password does not match!</p></div>';
+			$msg = '<div class="alert alert-danger"><p>Password does not match!</p></div>';
 		} else {
 			$msg = registerUser($connection);
 			if($msg !== "success") {
 				$email = $_POST['reg-email'];
 				$username = $_POST['reg-email'];
-				echo $msg;
 			} else {
-				echo '<div class="alert alert-success"><p>Registered successfully! <a href="login.php">Login Now!</a></p></div>';
+				$msg = '<div class="alert alert-success"><p>Registered successfully! <a href="login.php">Login Now!</a></p></div>';
 			}
 		}
+	}
+
+	if($msg) {
+		echo '<style>
+				#reg-form { 
+					height: 95%; 
+				}
+				#registered-link {
+					display: none;
+				}
+			  </style>';
 	}
 ?>
 
@@ -38,10 +48,9 @@
 	  <div class="form-group">
 	    <label for="confirm-password">Confirm Password</label>
 	    <input type="password" name="confirm-password" class="form-control" id="confirm-password" placeholder="Confirm Password" required>
-	    <p>*Password must be at least 8 characters</p>
 	  </div>
-
-	  <a id="register-link" href="login.php">Already Registered? Please Login</a><br><br>
+	  <p><a id="registered-link" href="login.php">Already Registered? Please Login</a></p>
+	  <?php echo $msg; ?>
 	  <div id="reg-btns" class="pull-right">
 		  <button id="reg-btn" name="submit" type="submit" class="btn btn-primary">Register</button>
 		  <a href="register.php" id="reg-cancel-btn" class="btn btn-danger">Cancel</a>

@@ -17,8 +17,12 @@
 	    <label for="description">Description</label>
 	    <textarea name="description" id="description" class="form-control" placeholder="Description"></textarea><br>
 	  </div>
-	  <div id="add-camp-btns" class="pull-right">
-	  	<button id="add-camp-btn" name="add-camp" type="submit" class="btn btn-primary">Add Campground</button>
+	  <div id="add-btn-div-lg" class="pull-right">
+	  	<button name="add-camp" type="submit" class="btn btn-primary">Add Campground</button>
+	  	<a href="mainpage.php" class="btn btn-danger">Cancel</a>
+	  </div>
+	  <div id="add-btn-div-sm" class="pull-right">
+	  	<button name="add-camp" type="submit" class="btn btn-primary">Add Campground</button>
 	  	<a href="mainpage.php" class="btn btn-danger">Cancel</a>
 	  </div>
 	</form>
