@@ -73,6 +73,7 @@
         </div><!-- modal -->
 	<?php else : ?>
 		<?php header("Location: index.php"); ?>
+		<?php exit(); ?>
 	<?php endif; ?>
 </div>
 

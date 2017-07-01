@@ -11,6 +11,7 @@
 	if(isset($_POST['edit-comment'])) {
 		if($unedited_comment === $_POST['edit-comment-box']) {
 			header("Location: campinfo.php?post-id=$post_id");
+			exit();
 		} else {
 			editComment($connection, $comment_id, $post_id);
 		}

@@ -1,12 +1,12 @@
-<?php 
+<?php
   include("functions.php");
 
   if(isset($_GET['logout'])) {
     logOut();
     header("Location: index.php");
+    exit();
   }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Yelp Camp</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/custom1.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
   </head>
   <body>
     <div id="container" class="container-fluid">

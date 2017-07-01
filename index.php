@@ -2,6 +2,7 @@
 
 <?php if(isset($_SESSION['logged_in'])) : ?>
 	<?php header("Location: mainpage.php"); ?>
+	<?php exit(); ?>
 <?php else : ?>
     <section id="landing-page" class="container-fluid text-center">
       <div id="landing-div" class="container">

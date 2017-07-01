@@ -1,34 +1,46 @@
-body {
-	height: 100vh;
-	margin-top: 100px;
-	margin-bottom: 100px;
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#container {
+	min-height: 100%;
+	position: relative;
+	padding: 0;
 }
 
 nav {
-	padding: 0 50px;
+	margin: 0 !important;
+	border-radius: 0 !important;
 }
 
-#landing-page {
-	height: 100%;
-	width: 100%;
-	position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: table;
-	margin: auto;
+.navbar-brand, .navbar-right li a {
+	color: #fff !important;
+}
+
+#landing-page, #login-form-div, #register-form-div, #main-heading, #add-camp-div, #edit-camp-div, #camp-info-div, #user-info-div, #edit-account-div, #edit-comment-div, #search-email-div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#user-info-div {
+	flex-direction: column;
+}
+
+#landing-page, #login-form-div, #register-form-div {
+	height: 560px;
 }
 
 #landing-page {
 	background: url('../img/camping.jpg') center center no-repeat;
 	background-size: cover;
+	width: 100%;
 }
 
 #landing-div {
-	display: table-cell;
 	text-align: center;
-	vertical-align: middle;
 	line-height: 90px;
 }
 
@@ -38,65 +50,57 @@ nav {
 }
 
 #landing-div h1 {
-	font-size: 4em;
+	font-size: 50px;
 }
 
-#register-form-div, #login-form-div, #add-camp-div, #camp-info-page {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	width: 100%;
-	/*height: 100vh;*/
-	height: 100%;
-	margin: 0;
-}
-
-#reg-form, #login-form, #add-camp-form {
-	width: 500px;
-	padding: 0 30px;
+#login-form, #reg-form, #add-camp-form, #edit-camp-form, #edit-username-form, #edit-comment-form, #search-email-form, .edit-account-form {
+	flex: 0 1 400px;
+	height: 60%;
 	border: 1px solid #bbb;
 	box-shadow: 5px 5px 10px #ddd;
 	border-radius: 10px;
-}
-
-#reg-form {
-	height: 400px;
+	padding: 20px;
 }
 
 #login-form {
-	height: 300px;
+	margin-top: 0;
+	margin-bottom: 40px;
+}
+
+#reg-form {
+	height: 85%;
+}
+
+#edit-camp-form {
+	margin-top: 33px;
+	padding: 20px;
 }
 
 #add-camp-form {
-	display: flex;
-	flex-direction: column;
-	height: 70%;
+	margin-top: 30px;
 }
 
-#camp-info-page {
-	/*margin-top: 100px;
-	margin-bottom: 100px;*/
+#add-btn-div-sm, #add-btn-div-sm button, #add-btn-div-sm a  {
+	display: none;
 }
 
-#reg-btn, #login-btn, #add-camp-btn {
-	width: 100%;
+#edit-comment-form {
+	margin-top: 90px;
 }
 
 #main-heading-div {
-	margin: 100px auto;
+	padding-bottom: 25px;
+	height: 100%;
+	margin: 30px auto;
+	width: 80%;
 }
 
 #main-heading {
-	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 }
 
-.thumbnail img {
+.camp-thumbnails img {
 	height: 150px;
-	/*height: 100%;*/
 	width: 100%;
 }
 
@@ -105,47 +109,209 @@ nav {
 	height: 100px;
 }
 
-.camp-info-div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+#camp-info-div {
 	flex-direction: column;
-	height: 75%;
-	/*height: 100%;*/
-	width: 55%;
+	padding: 20px;
+	margin-bottom: 30px;
 }
 
-.camp-info-div img {
-	height: 100%;
+.camp-description {
+	padding-bottom: 10px;
+}
+
+.camp-img, .camp-comments {
+	width: 60%;
+}
+
+.camp-img img {
 	width: 100%;
 }
 
-#footer {
-	padding-top: 15px;
+#comment-box {
+	resize: none;
 }
 
-.navbar-brand, .navbar-nav li a, footer {
-	color: #fff !important;
+#user-password {
+	outline: 0;
+	border: none;
+	background: none;
 }
 
-@media only screen and (max-width: 770px) {
-	nav {
-		padding: 0 20px;
+#delete-user-btn {
+	margin: 0 auto;
+	display: block;
+}
+
+#user-info-table {
+	width: 50%;
+	margin-top: 120px;
+}
+
+.table tbody > tr > td.vert-aligned {
+    vertical-align: middle;
+}
+
+.table tbody > tr > td.centered {
+    text-align: center;
+}
+
+.change-sm-btn {
+	display: none;
+}
+
+.edit-btn {
+	margin-right: 5px;
+}
+
+.edit-account-form, #search-email-form {
+	margin-top: 115px;
+}
+
+#edit-password-form {
+	margin-top: 40px;
+	margin-bottom: 100px;
+}
+
+footer {
+	background: #101010;
+	position: absolute;
+	padding: 15px;
+	width: 100%;
+	height: 50px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+footer p {
+	color: #fff;
+}
+
+@media only screen and (max-width: 1371px) {
+	#register-form-div {
+		margin-bottom: 45px;
+	}
+}
+
+@media only screen and (max-width: 981px) {
+	.camp-img, .camp-comments {
+		width: 80%;
+	}
+}
+
+@media only screen and (max-width: 780px) {
+	#main-heading-div {
+		width: 70%;
+		padding: 0 0 25px 0;
 	}
 
-	.thumbnail img {
-		height: 100%;
+	.camp-thumbnails img {
+		width: 100%;
+		height: 50%;
 	}
 }
 
-@media only screen and (max-width: 384px) {
+@media only screen and (max-width: 486px) {
+	.camp-img, .camp-comments {
+		width: 90%;
+	}
+}
+
+@media only screen and (max-width: 421px) {
+	#main-heading-div {
+		width: 85%;
+	}
+}
+
+@media only screen and (max-width: 408px) {
+	#add-camp-form {
+		margin-top: 35px;
+	}
+}
+
+@media only screen and (max-width: 396px) {
 	#add-camp-form h3 {
-		font-size: 1.21em;
+		font-size: 20px;
 	}
 }
 
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 360px) {
+	#user-info-table {
+		font-size: 12px;
+	}
+
+	.change-sm-btn {
+		display: block;
+	}
+
+	.change-lg-btn {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 336px) {
+	#login-form {
+		flex: 0 1 100%;
+		margin: 0;
+	}
+
+	#login-btns, #reg-btns {
+		float: none !important;
+	}
+
+	#login-cancel-btn, #reg-cancel-btn {
+		float: right;
+	}
+}
+
+@media only screen and (max-width: 349px) {
+	#login-form {
+		margin-bottom: 45px;
+	}
+
+	footer p {
+		font-size: 12px;
+	}
+}
+
+@media only screen and (max-width: 322px) {
+	#register-link {
+		font-size: 14px;
+	}
+}
+
+@media only screen and (max-width: 314px) {
+	#registered-link {
+		font-size: 12px;
+	}
+
 	#add-camp-form h3 {
-		font-size: 1.15em;
+		font-size: 17px;
+	}
+}
+
+@media only screen and (max-width: 310px) {
+	#reg-form {
+		height: 90%;
+	}
+}
+
+@media only screen and (max-width: 298px) {
+	#registered-link {
+		font-size: 11px;
+	}
+
+	#add-camp-form h3 {
+		font-size: 16px;
+	}
+
+	footer p {
+		font-size: 10px;
+	}
+}
+
+@media only screen and (max-width: 279px) {
+	#reg-form {
+		height: 90%;
 	}
 }

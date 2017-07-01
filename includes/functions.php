@@ -57,11 +57,12 @@
 
 		if($matchFound) {
 			if( ($matchFound['email'] === $email || $matchFound['username'] === $username) && $matchFound['password'] !== $password) {
-				return '<div class="alert alert-danger"><p>Incorrect Password! <a href="#">Forgot Password?</a></p></div>';
+				return '<div class="alert alert-danger"><p>Incorrect Password! <a href="passwordreset.php">Forgot Password?</a></p></div>';
 			} else {
 				$_SESSION['logged_in'] = true;
 				$_SESSION['camper_data'] = ["id"=>$matchFound['id'], "email"=>$matchFound['email'], "name"=>$matchFound['username'], "password"=>$matchFound['password']];
 				header("Location: mainpage.php");
+				exit();
 			}
 		} else {
 			return '<div class="alert alert-danger"><p>Email or Username cannot be found. <a href="register.php">Sign up for an account.</a></p></div>';
@@ -119,6 +120,7 @@
 		$statement3->closeCursor();
 
 		header("Location: user.php");
+		exit();
 	}
 
 	function changePassword($conn) {
@@ -136,6 +138,7 @@
 		logOut();
 		
 		header("Location: login.php?change_pass=true");
+		exit();
 	}
 
 	function deleteUser($conn) {
@@ -158,6 +161,38 @@
 		logOut();
 
 		header("Location: mainpage.php?user_deleted=true");
+		exit();
+	}
+
+	function resetPassword($conn, $temp_pass) {
+		$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		$email = $post['search-email'];
+		$new_password = md5($temp_pass);
+
+		$statement1 = $conn->prepare("SELECT *FROM campers WHERE email = :email");
+		$statement1->bindValue(':email', $email);
+		$statement1->execute();
+		$emailFound = $statement1->fetch();
+		$statement1->closeCursor();
+
+		if($emailFound) {
+			$statement2 = $conn->prepare("UPDATE campers SET password = :password WHERE email = :email");
+			$statement2->bindValue(':password', $new_password);
+			$statement2->bindValue(':email', $email);
+			$statement2->execute();
+			$statement2->closeCursor();
+
+			$emailTo = $emailFound['email'];
+		    $subject = "Password Reset";        
+		    $message = "Your new password is ". $temp_pass . ". Please use this to login to your account. You can then change your password anytime after you logged in using the passcode that you received. Thank you very much."; 
+		    $headers = "From: jleorico@gmail.com";
+    
+    		mail($emailTo, $subject, $message, $headers);
+
+			return '<div class="alert alert-success">Password reset success! Please check your email for the new passcode (min. 8 characters).</div>';
+		} else {
+			return '<div class="alert alert-danger">Email not found!</div>';
+		}
 	}
 
 	function addCamp($conn) {
@@ -206,7 +241,8 @@
 
 		$_SESSION['post-edited'] = "success";
 
-		header("Location: campinfo.php?post-id=$post_id");		
+		header("Location: campinfo.php?post-id=$post_id");
+		exit();
 	}
 
 	function deleteCamp($conn, $post_id) {
@@ -230,6 +266,7 @@
 		$_SESSION['post-deleted'] = "success";
 
 		header("Location: mainpage.php");
+		exit();
 	}
 
 	function showCamps($conn) {
@@ -271,7 +308,6 @@
 
 		$query = "INSERT INTO edit_comment_history(comment_id, post_id, user_id, username, updated_comment, updated_comment_date) 
 				  VALUES(:comment_id, :post_id, :user_id, :username, :updated_comment, :updated_comment_date)";
-		// $query = "UPDATE comments SET comment = :edit_comment WHERE id = :comment_id";
 		$statement1 = $conn->prepare("UPDATE comments SET comment = :edit_comment WHERE id = :comment_id");
 		$statement2 = $conn->prepare($query);
 
@@ -293,6 +329,7 @@
 		$_SESSION['edited'] = "success";
 
 		header("Location: campinfo.php?post-id=$post_id");
+		exit();
 	}
 
 	function commentForEditing($conn, $id) {

@@ -12,6 +12,7 @@
 	if(isset($_POST['edit-username-btn']) || isset($_POST['edit-email-btn'])) {
 		if($_POST['edit-username'] === $value || $_POST['edit-email'] === $value) {
 			header("Location: user.php");
+			exit();
 		} else {
 			editUsernameEmail($connection);
 		}
@@ -73,7 +74,7 @@
 		    <input type="password" name="confirm-new-password" class="form-control" id="confirm-new-password" placeholder="" value="" required>
 		  </div>
 		  <?php echo $value; ?>
-		  <a href="#">Forgot Password?</a><br><br>
+		  <a href="passwordreset.php">Forgot Password?</a><br><br>
 		  <div class="pull-right">
 			  <button id="" name="edit-password-btn" type="submit" class="btn btn-primary">Save Changes</button>
 			  <a href="user.php" id="" class="btn btn-danger">Cancel</a>
@@ -83,6 +84,7 @@
 </div>
 <?php else : ?>
 	<?php header("Location: index.php"); ?>
+	<?php exit(); ?>
 <?php endif; ?>
 
 <?php include('includes/footer.php'); ?>
