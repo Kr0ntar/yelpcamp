@@ -15,7 +15,7 @@
 
 <?php echo $msg; ?>
 
-<div id="user-info-div" class="container">
+<div id="user-info-div" class="container flex-container">
 	<?php if(isset($_SESSION['logged_in'])) : ?>
 		<table id="user-info-table" class="table table-striped table-bordered">
 			<thead>

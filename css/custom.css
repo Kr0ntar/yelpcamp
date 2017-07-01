@@ -19,7 +19,7 @@ nav {
 	color: #fff !important;
 }
 
-#landing-page, #login-form-div, #register-form-div, #main-heading, #add-camp-div, #edit-camp-div, #camp-info-div, #user-info-div, #edit-account-div, #edit-comment-div, #search-email-div {
+.flex-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -53,7 +53,7 @@ nav {
 	font-size: 50px;
 }
 
-#login-form, #reg-form, #add-camp-form, #edit-camp-form, #edit-username-form, #edit-comment-form, #search-email-form, .edit-account-form {
+.flex-form, .edit-account-form {
 	flex: 0 1 400px;
 	height: 60%;
 	border: 1px solid #bbb;
@@ -62,13 +62,12 @@ nav {
 	padding: 20px;
 }
 
-#login-form {
-	margin-top: 0;
-	margin-bottom: 40px;
-}
-
 #reg-form {
 	height: 85%;
+}
+
+#login-form {
+	margin-top: -20px;
 }
 
 #edit-camp-form {
@@ -78,10 +77,6 @@ nav {
 
 #add-camp-form {
 	margin-top: 30px;
-}
-
-#add-btn-div-sm, #add-btn-div-sm button, #add-btn-div-sm a  {
-	display: none;
 }
 
 #edit-comment-form {
@@ -163,8 +158,12 @@ nav {
 	margin-right: 5px;
 }
 
-.edit-account-form, #search-email-form {
+.edit-account-form {
 	margin-top: 115px;
+}
+
+#search-email-form {
+	margin-top: 150px;
 }
 
 #edit-password-form {
@@ -306,7 +305,7 @@ footer p {
 	}
 
 	footer p {
-		font-size: 10px;
+		font-size: 10.5px;
 	}
 }
 

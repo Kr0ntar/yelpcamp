@@ -35,7 +35,7 @@
 
 <?php echo $msg; ?>
 
-<div id="camp-info-div">
+<div id="camp-info-div" class="flex-container">
 	<div class="thumbnail camp-img">
  	  <img src="<?php echo $camp_info['img_link']; ?>" alt="camp-info">
     <div class="container-fluid camp-description">

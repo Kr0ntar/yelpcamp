@@ -9,8 +9,8 @@
   	}
 ?>
 
-<div id="edit-camp-div" class="container-fluid">
-	<form id="edit-camp-form" method="post">
+<div id="edit-camp-div" class="container-fluid flex-container">
+	<form id="edit-camp-form" class="flex-form" method="post">
 	  <h3>Edit Campground</h3><br>
 
 	  <div class="form-group">

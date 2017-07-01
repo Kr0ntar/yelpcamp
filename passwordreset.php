@@ -6,11 +6,12 @@
 		$temp_password = mt_rand(10000000, 9999999999);
 		$msg = resetPassword($connection, $temp_password);
 		echo $msg;
+		echo '<style>#search-email-form { margin-top: 80px; }</style>';
 	}
 ?>
 
-<div id="search-email-div" class="container-fluid">
-	<form id="search-email-form" method="post">
+<div id="search-email-div" class="container-fluid flex-container">
+	<form id="search-email-form" class="flex-form" method="post">
 	  <h3>Find Your Account</h3><br>
 	  <div class="form-group">
 	    <label for="search-email">Please enter your email address to search for your account.</label>

@@ -30,7 +30,7 @@
 ?>
 
 <?php if(isset($_SESSION['logged_in'])) : ?>
-<div id="edit-account-div" class="container-fluid">
+<div id="edit-account-div" class="container-fluid flex-container">
 
 	<?php if(isset($_GET['username'])) : ?>
 		<form id="edit-username-form"  class="edit-account-form" method="post">

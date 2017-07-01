@@ -24,7 +24,7 @@
 ?>
 
 	<div id="main-heading-div" class="container-fluid">
-	    <div id="main-heading" class="jumbotron">
+	    <div id="main-heading" class="jumbotron flex-container">
 	    	<h1 class="text-center">Welcome to YelpCamp</h1>
 	    	<h2 class="text-center">Explore some of the best campgrounds all over the world</h2><br>
 	    	<a href="<?php echo $sign_in; ?>" id="add-new-camp-btn" class="btn btn-primary btn-lg">Suggest a Campground</a>

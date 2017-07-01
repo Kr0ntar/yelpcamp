@@ -6,8 +6,8 @@
 	<?php header("Location: login.php?sign-in"); ?>
 	<?php exit(); ?>
 <?php else : ?>
-	<div id="add-camp-div" class="container-fluid">
-		<form id="add-camp-form" action="mainpage.php" method="post">
+	<div id="add-camp-div" class="container-fluid flex-container">
+		<form id="add-camp-form" class="flex-form" action="mainpage.php" method="post">
 		  <h3>Suggest a New Campground</h3><br>
 		  <div class="form-group">
 		    <label for="campname">Camp Name</label>
@@ -22,11 +22,7 @@
 		    <textarea name="description" id="description" class="form-control" placeholder="Description"></textarea><br>
 		  </div>
 		  <div id="add-btn-div-lg" class="pull-right">
-		  	<button name="add-camp" type="submit" class="btn btn-primary">Add Campground</button>
-		  	<a href="mainpage.php" class="btn btn-danger">Cancel</a>
-		  </div>
-		  <div id="add-btn-div-sm" class="pull-right">
-		  	<button name="add-camp" type="submit" class="btn btn-primary">Add Campground</button>
+		  	<button name="add-camp" type="submit" class="btn btn-primary">Submit</button>
 		  	<a href="mainpage.php" class="btn btn-danger">Cancel</a>
 		  </div>
 		</form>

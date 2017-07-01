@@ -35,8 +35,8 @@
 	<?php header("Location: mainpage.php"); ?>
 	<?php exit(); ?>
 <?php else : ?>
-	<div id="register-form-div" class="container-fluid">
-		<form id="reg-form" action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
+	<div id="register-form-div" class="container-fluid flex-container">
+		<form id="reg-form" class="flex-form" action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
 		  <h3>Sign Up Form</h3><br>
 		  <div class="form-group">
 		    <label for="reg-email">Email</label>

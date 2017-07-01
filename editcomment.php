@@ -18,8 +18,8 @@
 	}
 ?>
 
-<div id="edit-comment-div" class="container-fluid">
-	<form id="edit-comment-form" method="post">
+<div id="edit-comment-div" class="container-fluid flex-container">
+	<form id="edit-comment-form" class="flex-form" method="post">
 	  <h3>Edit Comment</h3><br>
 	  <div class="form-group">
 	    <label for="description">Description</label>

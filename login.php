@@ -16,6 +16,7 @@
 
 	if(isset($_GET['sign-in'])) {
 		echo '<div class="alert alert-danger"><p>You must be logged in first!</p></div>';
+		echo '<style>#login-form { margin-top: -80px; }</style>';
 	}
 
 	if(isset($_SESSION['edited'])) {
@@ -54,8 +55,8 @@
 	<?php header("Location: mainpage.php"); ?>
 	<?php exit(); ?>
 <?php else : ?>
-	<div id="login-form-div" class="container-fluid">
-		<form id="login-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+	<div id="login-form-div" class="container-fluid flex-container">
+		<form id="login-form" class="flex-form" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
 		  <h3>Login Form</h3><br>
 		  <div class="form-group">
 		    <label for="email-username">Email or Username</label>
