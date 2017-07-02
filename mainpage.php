@@ -35,7 +35,7 @@
 
 	    	<div class="col-lg-3 col-sm-6">
 	    		<div class="thumbnail camp-thumbnails">
-	    			<img src="<?php echo $camp['img_link']; ?>" alt="campground">
+	    			<img src="<?php echo $camp['img_link']; ?>" alt="<?php echo $camp['title']; ?>">
 	    			<?php if(strlen($camp['title']) > 25) : ?>
 	    				<h4 id="camp-title" class="text-center"><?php echo substr($camp['title'], 0, 22) . "..."; ?> </h4>
 	    			<?php else: ?>

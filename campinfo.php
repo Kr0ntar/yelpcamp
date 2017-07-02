@@ -42,8 +42,9 @@
       <h2><?php echo $camp_info['title']; ?></h2>
       <p><?php echo $camp_info['description']; ?></p>
       <p><em>Submitted by <?php echo $camp_info['username']; ?> on <?php echo $camp_info['post_date']; ?></em></p>
+
       <?php if(isset($_SESSION['logged_in']) && $_SESSION['camper_data']['name'] == $camp_info['username']) : ?>
-        <a href="editcampground.php?post-id=<?php echo $_GET['post-id']; ?>" class="btn btn-success edit-btn">Edit</button>
+        <a href="editcampground.php?post-id=<?php echo $_GET['post-id']; ?>" class="btn btn-warning edit-btn">Edit</button>
         <a href="" data-toggle="modal" data-target="#delete-post-modal" class="btn btn-danger delete-btn">Delete</a>
 
         <div class="modal" id="delete-post-modal" role="dialog" aria-hidden="true">
@@ -58,8 +59,8 @@
                 <div class="modal-footer">
                 <form action="campinfo.php?post-id=<?php echo $_GET['post-id']; ?>" method="post" role="form">
                   <input type="hidden" name="comment-id" value="<?php //echo $comment['id']; ?>">
-                  <button type="submit" name="delete-post" class="btn btn-danger">Yes</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                  <button type="submit" name="delete-post" class="btn btn-success">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                 </form>
                 </div>
               </div><!-- modal-content -->
@@ -89,7 +90,7 @@
 
         <?php if(isset($_SESSION['logged_in']) && $_SESSION['camper_data']['name'] == $comment['username']) : ?>
           <p id="p-comment"><?php echo $comment['comment']; ?></p>
-          <a href="editcomment.php?comment-id=<?php echo $comment['id']; ?>&post-id=<?php echo $_GET['post-id']; ?>" class="btn btn-success btn-sm edit-btn">Edit</button>
+          <a href="editcomment.php?comment-id=<?php echo $comment['id']; ?>&post-id=<?php echo $_GET['post-id']; ?>" class="btn btn-warning btn-sm edit-btn">Edit</button>
           <a href="" data-toggle="modal" data-target="#delete-comment-modal" class="btn btn-danger btn-sm delete-btn">Delete</a>
           
           <div class="modal" id="delete-comment-modal" role="dialog" aria-hidden="true">
@@ -104,8 +105,8 @@
                   <div class="modal-footer">
                   <form action="campinfo.php?post-id=<?php echo $_GET['post-id']; ?>" method="post" role="form">
                     <input type="hidden" name="comment-id" value="<?php echo $comment['id']; ?>">
-                    <button type="submit" name="delete-comment" class="btn btn-danger">Yes</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="submit" name="delete-comment" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                   </form>
                   </div>
                 </div><!-- modal-content -->

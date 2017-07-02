@@ -70,7 +70,7 @@
 		  <p><a href="passwordreset.php" id="forgot-account-link">Forgot Account/Password?</a></p>
 		  <div id="login-btns" class="pull-right">
 			  <button id="login-btn" name="login-submit" type="submit" class="btn btn-primary">Login</button>
-			  <a href="login.php" id="login-cancel-btn" class="btn btn-danger">Cancel</a>
+			  <a href="index.php" id="login-cancel-btn" class="btn btn-danger">Cancel</a>
 		  </div>
 		</form>
 	</div>

@@ -64,8 +64,8 @@
                 <div class="modal-footer">
                 <form action="mainpage.php" method="post" role="form">
                   <input type="hidden" name="comment-id" value="<?php echo $comment['id']; ?>">
-                  <button type="submit" name="delete-user" class="btn btn-danger">Yes</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                  <button type="submit" name="delete-user" class="btn btn-success">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                 </form>
                 </div>
               </div><!-- modal-content -->

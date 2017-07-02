@@ -58,7 +58,7 @@
 		  <?php echo $msg; ?>
 		  <div id="reg-btns" class="pull-right">
 			  <button id="reg-btn" name="submit" type="submit" class="btn btn-primary">Register</button>
-			  <a href="register.php" id="reg-cancel-btn" class="btn btn-danger">Cancel</a>
+			  <a href="index.php" id="reg-cancel-btn" class="btn btn-danger">Cancel</a>
 		  </div>
 		</form>
 	</div>
