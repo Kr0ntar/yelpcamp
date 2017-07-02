@@ -40,6 +40,7 @@
 
 	if(isset($_GET['change_pass'])) {
 		echo '<div class="alert alert-success"><p>Password changed! Login with your new password.</p></div>';
+		echo '<style>#login-form { margin-top: -80px; }</style>';
 	}
 
 	if($msg) {

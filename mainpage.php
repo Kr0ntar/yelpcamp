@@ -23,30 +23,30 @@
 	}
 ?>
 
-	<div id="main-heading-div" class="container-fluid">
-	    <div id="main-heading" class="jumbotron flex-container">
-	    	<h1 class="text-center">Welcome to YelpCamp</h1>
-	    	<h2 class="text-center">Explore some of the best campgrounds all over the world</h2><br>
-	    	<a href="<?php echo $sign_in; ?>" id="add-new-camp-btn" class="btn btn-primary btn-lg">Suggest a Campground</a>
-	    </div>
-
-	    <div class="row">
-	    	<?php foreach($camp_posts as $camp) : ?>
-
-	    	<div class="col-lg-3 col-sm-6">
-	    		<div class="thumbnail camp-thumbnails">
-	    			<img src="<?php echo $camp['img_link']; ?>" alt="<?php echo $camp['title']; ?>">
-	    			<?php if(strlen($camp['title']) > 25) : ?>
-	    				<h4 id="camp-title" class="text-center"><?php echo substr($camp['title'], 0, 22) . "..."; ?> </h4>
-	    			<?php else: ?>
-	    				<h4 id="camp-title" class="text-center"><?php echo $camp['title']; ?> </h4>
-	    			<?php endif; ?>
-	    			<a href="campinfo.php?post-id=<?php echo $camp['id']; ?>"><p class="text-center">More Info...</p></a>		
-	    		</div>
-	    	</div>
-
-	    	<?php endforeach; ?>
-	    </div>
+<div id="main-heading-div" class="container-fluid">
+    <div id="main-heading" class="jumbotron flex-container">
+    	<h1 class="text-center">Welcome to YelpCamp</h1>
+    	<h2 class="text-center">Explore some of the best campgrounds all over the world</h2><br>
+    	<a href="<?php echo $sign_in; ?>" id="add-new-camp-btn" class="btn btn-primary btn-lg">Suggest a Campground</a>
     </div>
+
+    <div class="row">
+    	<?php foreach($camp_posts as $camp) : ?>
+
+    	<div class="col-lg-3 col-sm-6">
+    		<div class="thumbnail camp-thumbnails">
+    			<img src="<?php echo $camp['img_link']; ?>" alt="<?php echo $camp['title']; ?>">
+    			<?php if(strlen($camp['title']) > 25) : ?>
+    				<h4 id="camp-title" class="text-center"><?php echo substr($camp['title'], 0, 22) . "..."; ?> </h4>
+    			<?php else: ?>
+    				<h4 id="camp-title" class="text-center"><?php echo $camp['title']; ?> </h4>
+    			<?php endif; ?>
+    			<a href="campinfo.php?post-id=<?php echo $camp['id']; ?>"><p class="text-center">More Info...</p></a>		
+    		</div>
+    	</div>
+
+    	<?php endforeach; ?>
+    </div>
+</div>
 
 <?php include('includes/footer.php'); ?>

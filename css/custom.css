@@ -4,12 +4,6 @@ html, body {
 	padding: 0;
 }
 
-#container {
-	min-height: 100%;
-	position: relative;
-	padding: 0;
-}
-
 nav {
 	margin: 0 !important;
 	border-radius: 0 !important;
@@ -19,14 +13,18 @@ nav {
 	color: #fff !important;
 }
 
+
+/* container and main divs */
+#container {
+	min-height: 100%;
+	position: relative;
+	padding: 0;
+}
+
 .flex-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-#user-info-div {
-	flex-direction: column;
 }
 
 #landing-page, #login-form-div, #register-form-div {
@@ -53,6 +51,25 @@ nav {
 	font-size: 50px;
 }
 
+#main-heading-div {
+	padding-bottom: 25px;
+	height: 100%;
+	margin: 30px auto;
+	width: 80%;
+}
+
+#main-heading {
+	flex-direction: column;
+}
+
+#camp-info-div {
+	flex-direction: column;
+	padding: 20px;
+	margin-bottom: 30px;
+}
+
+
+/* all form styles */
 .flex-form, .edit-account-form {
 	flex: 0 1 400px;
 	height: 60%;
@@ -76,24 +93,23 @@ nav {
 }
 
 #add-camp-form {
-	margin-top: 35px;
+	margin-top: 40px;
 }
 
 #edit-comment-form {
 	margin-top: 90px;
 }
 
-#main-heading-div {
-	padding-bottom: 25px;
-	height: 100%;
-	margin: 30px auto;
-	width: 80%;
+.edit-account-form, #search-email-form {
+	margin-top: 130px;
 }
 
-#main-heading {
-	flex-direction: column;
+#edit-password-form {
+	margin-top: 55px;
 }
 
+
+/* campground images and descriptions, comment box and comment styles */
 .camp-thumbnails img {
 	height: 150px;
 	width: 100%;
@@ -102,12 +118,6 @@ nav {
 #description {
 	resize: none;
 	height: 100px;
-}
-
-#camp-info-div {
-	flex-direction: column;
-	padding: 20px;
-	margin-bottom: 30px;
 }
 
 .camp-description {
@@ -124,6 +134,12 @@ nav {
 
 #comment-box {
 	resize: none;
+}
+
+
+/* user account section styles */
+#user-info-div {
+	flex-direction: column;
 }
 
 #user-password {
@@ -158,19 +174,8 @@ nav {
 	margin-right: 5px;
 }
 
-.edit-account-form {
-	margin-top: 115px;
-}
 
-#search-email-form {
-	margin-top: 150px;
-}
-
-#edit-password-form {
-	margin-top: 40px;
-	margin-bottom: 100px;
-}
-
+/* footer section */
 footer {
 	background: #101010;
 	position: absolute;
@@ -186,6 +191,8 @@ footer p {
 	color: #fff;
 }
 
+
+/* extra media queries */
 @media only screen and (max-width: 1371px) {
 	#register-form-div {
 		margin-bottom: 45px;

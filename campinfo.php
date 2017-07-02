@@ -58,7 +58,7 @@
                 </div>
                 <div class="modal-footer">
                 <form action="campinfo.php?post-id=<?php echo $_GET['post-id']; ?>" method="post" role="form">
-                  <input type="hidden" name="comment-id" value="<?php //echo $comment['id']; ?>">
+                  <input type="hidden" name="comment-id">
                   <button type="submit" name="delete-post" class="btn btn-success">Yes</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                 </form>
