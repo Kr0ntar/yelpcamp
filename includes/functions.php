@@ -186,7 +186,7 @@
 			$emailTo = $emailFound['email'];
 		    $subject = "Password Reset";        
 		    $message = "Your new password is ". $temp_pass . ". Please use this to login to your account. You can then change your password anytime after you logged in using the passcode that you received. Thank you very much."; 
-		    $headers = "From: jleorico@gmail.com";
+		    $headers = "From: YelpCamp Team <jleorico@gmail.com>";
     
     		mail($emailTo, $subject, $message, $headers);
 
